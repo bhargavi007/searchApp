@@ -1,0 +1,57 @@
+<template name="SearchRepository">
+    <div class="row">
+        <div class="container-fluid" style="max-width:980px;margin-top:80px">
+            <div class="col-xs-8">
+                <input type="text" class="col-xs-12 inputQuery" style="width:100%" placeholder="Search Repositories">
+            </div>
+            <div class="col-xs-3">
+                <button class="btn btn-primary searchGit">Search</button>
+            </div>
+
+            <div class="col-xs-8" style="margin-top:30px">
+                {{#each getRepositories}}
+                    <div class="col-md-6 col-xs-12" style="padding:10px">
+                        <div class="col-xs-12" style="min-height:150px;border:1px solid #EEE;padding-left:0px; {{#if showIcon name}}{{else}}background-color:#FFFACD{{/if}}" data-url="{{url}}">
+                            <div class="col-xs-12" style="font-size:20px;font-weight:bold">
+                                {{name}}
+                            </div>
+                            <a class="col-xs-12" style="word-wrap: break-word;margin-bottom:10px" target="_blank" href="{{url}}">
+                                {{url}}
+                            </a>
+                            <div class="col-xs-6">
+                                Forks: <b>{{forks_count}}</b>
+                            </div>
+                            <div class="col-xs-6">
+                                Stars: <b>{{stars}}</b>
+                            </div>
+                            {{#if showIcon name}}
+                                <i class="fa fa-download importPackages" data-owner="{{owner}}" data-name="{{name}}" data-branch="{{default_branch}}" data-star="{{stars}}" aria-hidden="true" style="position:absolute;top:20px;right:20px;cursor:pointer"></i>
+                            {{/if}}
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+            {{getPackages}}
+            {{getTopPackages}}
+            <div class="col-xs-4 getRepositoryName" style="margin-top:30px">
+            </div>
+            <div class="col-xs-4 showAllPackages">
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="TopPackages">
+    <div class="container-fluid" style="max-width:980px;margin-top:80px">
+        <div class="row">
+            {{#each getTopPackages}}
+            <div class="col-md-6" style="border:1px solid #EEE;min-height:150px">
+                <b>{{package}}</b>
+                <div class="showRepos col-xs-12" data-id="{{package}}"></div>
+                {{getRepos package}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</template>
